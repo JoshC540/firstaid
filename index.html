@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0f2318">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="First Aid IE">
+<meta name="description" content="Irish First Aid quick reference — HSE and Irish Red Cross guidelines for trained first aiders.">
+<title>Irish First Aid — Reference Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#0f1a13; --ink-mid:#3a4a3e; --ink-soft:#6b7a6f; --ink-faint:#a8b5ac;
+  --paper:#f5f4f0; --paper-2:#eeedea; --paper-3:#e4e3de;
+  --green:#1a4a2e; --green-mid:#2d6e47; --green-pale:#e8f0eb;
+  --red:#8b1a1a; --red-pale:#f5ebe8;
+  --amber:#7a4a00; --amber-pale:#f5efe4;
+  --blue:#1a2e4a; --blue-pale:#e8ecf0;
+  --teal:#0d4a42; --teal-pale:#e4f0ee; --teal-mid:#1a6b60;
+  --border:rgba(15,26,19,0.10); --border-mid:rgba(15,26,19,0.15);
+  --shadow-sm:0 1px 4px rgba(15,26,19,0.06),0 1px 2px rgba(15,26,19,0.04);
+  --shadow-md:0 4px 16px rgba(15,26,19,0.08),0 2px 6px rgba(15,26,19,0.05);
+  --r:12px; --r-sm:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Geist',sans-serif;background:var(--paper);color:var(--ink);max-width:480px;margin:0 auto;position:relative}
+
+#mainView{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+.header{background:var(--ink);padding:18px 20px 16px;flex-shrink:0}
+.header-brand{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.brand-title{font-family:'Instrument Serif',serif;font-size:22px;color:#fff;line-height:1.15;letter-spacing:-0.3px}
+.brand-sub{font-size:11px;font-weight:400;color:rgba(255,255,255,0.45);margin-top:3px;letter-spacing:0.3px}
+.header-badge{background:var(--green-mid);color:rgba(255,255,255,0.9);font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;letter-spacing:0.6px;text-transform:uppercase;margin-top:3px;flex-shrink:0}
+.search-wrap{position:relative}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:rgba(255,255,255,0.3);pointer-events:none}
+#searchInput{width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:var(--r-sm);padding:10px 14px 10px 34px;font-size:13.5px;font-family:'Geist',sans-serif;color:#fff;outline:none;transition:background .2s,border-color .2s}
+#searchInput::placeholder{color:rgba(255,255,255,0.3)}
+#searchInput:focus{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.22)}
+
+.scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 32px}
+
+.notice{background:var(--red-pale);border:1px solid rgba(139,26,26,0.15);border-left:3px solid var(--red);border-radius:var(--r-sm);padding:11px 13px;margin-bottom:16px}
+.notice p{font-size:12px;color:var(--red);font-weight:500;line-height:1.6}
+
+#installBanner{display:none;background:var(--green-pale);border:1px solid rgba(26,74,46,0.15);border-left:3px solid var(--green-mid);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:16px}
+#installBanner p{font-size:12px;color:var(--green);font-weight:500;line-height:1.5;margin-bottom:10px}
+#installBanner strong{font-weight:600;display:block;margin-bottom:3px;font-size:12.5px}
+.install-actions{display:flex;gap:8px}
+.btn-install{background:var(--green);color:#fff;font-size:12px;font-weight:600;padding:7px 14px;border-radius:6px;border:none;cursor:pointer;font-family:'Geist',sans-serif;transition:background .2s}
+.btn-install:active{background:var(--green-mid)}
+.btn-dismiss{background:transparent;color:var(--ink-soft);font-size:12px;font-weight:500;padding:7px 12px;border-radius:6px;border:1px solid var(--border-mid);cursor:pointer;font-family:'Geist',sans-serif}
+
+.section-label{font-size:10px;font-weight:600;color:var(--ink-faint);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;padding-left:1px}
+
+.condition-list{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.card{background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow .2s,border-color .2s}
+.card-trigger{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;user-select:none;transition:background .15s}
+.card-trigger:active{background:var(--paper)}
+.card-sev-bar{width:3px;border-radius:2px;align-self:stretch;flex-shrink:0;min-height:36px}
+.sev-critical .card-sev-bar{background:var(--red)}
+.sev-high .card-sev-bar{background:var(--amber)}
+.sev-medium .card-sev-bar{background:var(--blue)}
+.card-text{flex:1;min-width:0}
+.card-title{font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:-0.1px;line-height:1.3}
+.card-sub{font-size:12px;color:var(--ink-soft);margin-top:2px;font-weight:400}
+.card-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.sev-tag{font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:4px;letter-spacing:0.5px;text-transform:uppercase}
+.sev-critical .sev-tag{background:var(--red-pale);color:var(--red)}
+.sev-high .sev-tag{background:var(--amber-pale);color:var(--amber)}
+.sev-medium .sev-tag{background:var(--blue-pale);color:var(--blue)}
+.chevron{color:var(--ink-faint);transition:transform .25s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.card.open .chevron{transform:rotate(180deg);color:var(--green-mid)}
+.card-body{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.4,0,.2,1)}
+.card.open .card-body{max-height:1400px}
+.card-body-inner{padding:0 16px 16px;border-top:1px solid var(--border)}
+.body-section{margin-top:14px}
+.body-section-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;color:var(--ink-soft)}
+.symptom-list{display:flex;flex-direction:column;gap:5px}
+.symptom-item{display:flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.5;color:var(--ink-mid)}
+.symptom-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:6px}
+.step-list{display:flex;flex-direction:column;gap:8px}
+.step{display:flex;gap:11px;align-items:flex-start;font-size:13px;line-height:1.55;color:var(--ink-mid)}
+.step-num{background:var(--green);color:#fff;font-size:10px;font-weight:600;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.warning{margin-top:13px;background:var(--red-pale);border-left:2px solid var(--red);border-radius:0 6px 6px 0;padding:9px 12px;font-size:12px;color:var(--red);font-weight:500;line-height:1.6}
+.warning-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px;color:var(--red);opacity:0.7}
+.more-info-btn{margin-top:14px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--paper);border:1px solid var(--border-mid);border-radius:var(--r-sm);cursor:pointer;transition:background .15s;font-family:'Geist',sans-serif}
+.more-info-btn:active{background:var(--paper-2)}
+.more-info-btn span{font-size:12.5px;font-weight:600;color:var(--green);letter-spacing:0.1px}
+.more-info-btn svg{color:var(--green)}
+.no-results{display:none;text-align:center;padding:48px 20px;color:var(--ink-faint)}
+.no-results p{font-size:14px;margin-top:8px}
+.no-results-icon{width:40px;height:40px;margin:0 auto;opacity:0.3}
+
+.footer{flex-shrink:0;background:var(--paper-2);border-top:1px solid var(--border);padding:12px 16px;text-align:center}
+.footer p{font-size:10.5px;color:var(--ink-faint);line-height:1.7}
+.footer strong{color:var(--ink-soft);font-weight:600}
+
+/* DETAIL PANEL */
+#detailPanel{position:fixed;top:0;left:50%;transform:translateX(-50%) translateX(100vw);width:100%;max-width:480px;height:100vh;background:var(--paper);z-index:200;display:flex;flex-direction:column;transition:transform .36s cubic-bezier(.4,0,.2,1);overflow:hidden}
+#detailPanel.open{transform:translateX(-50%) translateX(0)}
+.detail-header{background:var(--ink);padding:18px 20px 16px;flex-shrink:0}
+.detail-nav{display:flex;align-items:center;margin-bottom:14px}
+.back-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:7px 12px 7px 9px;cursor:pointer;color:rgba(255,255,255,0.8);font-size:12.5px;font-weight:500;font-family:'Geist',sans-serif;transition:background .15s}
+.back-btn:active{background:rgba(255,255,255,0.16)}
+.detail-condition-name{font-family:'Instrument Serif',serif;font-size:24px;color:#fff;line-height:1.2;letter-spacing:-0.3px}
+.detail-condition-sub{font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px;font-weight:400}
+.detail-sev-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.detail-sev-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:4px;letter-spacing:0.6px;text-transform:uppercase}
+.detail-sev-tag.critical{background:rgba(139,26,26,0.25);color:#f09090}
+.detail-sev-tag.high{background:rgba(122,74,0,0.25);color:#e0b070}
+.detail-sev-tag.medium{background:rgba(26,46,74,0.25);color:#90a8d0}
+.detail-source{font-size:10px;color:rgba(255,255,255,0.3)}
+.detail-tabs{display:flex;background:var(--ink);padding:0 20px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0}
+.tab-btn{flex:1;padding:11px 8px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.4);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'Geist',sans-serif;letter-spacing:0.2px;transition:color .2s,border-color .2s;white-space:nowrap}
+.tab-btn.active{color:rgba(255,255,255,0.9);border-bottom-color:#4caf7a}
+.detail-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 20px 48px}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* DETAIL CONTENT */
+.d-block{margin-bottom:24px}
+.d-block:last-child{margin-bottom:0}
+.d-block-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink-faint);margin-bottom:10px}
+.d-block p{font-size:13.5px;line-height:1.75;color:var(--ink-mid)}
+.d-block ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:7px}
+.d-block ul li{font-size:13px;line-height:1.6;color:var(--ink-mid);padding-left:16px;position:relative}
+.d-block ul li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--ink-faint)}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 13px}
+.stat-card .stat-value{font-family:'Instrument Serif',serif;font-size:22px;color:var(--green);line-height:1.1;letter-spacing:-0.5px}
+.stat-card .stat-label{font-size:11px;color:var(--ink-soft);margin-top:3px;line-height:1.4;font-weight:400}
+.highlight-box{background:var(--green-pale);border:1px solid rgba(26,74,46,0.12);border-left:3px solid var(--green-mid);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 14px;margin-top:4px}
+.highlight-box p{font-size:13px;line-height:1.65;color:var(--green);font-weight:500}
+.caution-box{background:var(--red-pale);border:1px solid rgba(139,26,26,0.12);border-left:3px solid var(--red);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 14px;margin-top:4px}
+.caution-box p{font-size:13px;line-height:1.65;color:var(--red);font-weight:500}
+.source-note{background:var(--paper-2);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 12px;margin-top:4px;font-size:11px;color:var(--ink-soft);line-height:1.5}
+.source-note strong{color:var(--ink-mid);font-weight:600}
+
+/* KIT TAB SPECIFIC */
+.kit-section{margin-bottom:20px}
+.kit-section:last-child{margin-bottom:0}
+.kit-section-title{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink-faint);margin-bottom:10px}
+.kit-grid{display:flex;flex-direction:column;gap:8px}
+.kit-item{background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;display:flex;gap:12px;align-items:flex-start}
+.kit-item-priority{width:6px;border-radius:3px;align-self:stretch;flex-shrink:0;min-height:20px}
+.kit-priority-essential .kit-item-priority{background:var(--red)}
+.kit-priority-recommended .kit-item-priority{background:var(--amber)}
+.kit-priority-useful .kit-item-priority{background:var(--blue)}
+.kit-item-body{flex:1}
+.kit-item-name{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
+.kit-item-note{font-size:12px;color:var(--ink-soft);margin-top:3px;line-height:1.5}
+.kit-legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;padding:10px 12px;background:var(--paper-2);border-radius:var(--r-sm);border:1px solid var(--border)}
+.kit-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-soft);font-weight:500}
+.kit-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.kit-legend-dot.essential{background:var(--red)}
+.kit-legend-dot.recommended{background:var(--amber)}
+.kit-legend-dot.useful{background:var(--blue)}
+.kit-note{background:var(--teal-pale);border:1px solid rgba(13,74,66,0.15);border-left:3px solid var(--teal-mid);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:11px 13px;margin-top:4px}
+.kit-note p{font-size:12.5px;color:var(--teal);line-height:1.6;font-weight:500}
+
+/* LINKS */
+.link-list{display:flex;flex-direction:column;gap:8px}
+.ext-link{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);text-decoration:none;transition:background .15s,border-color .15s}
+.ext-link:active{background:var(--paper-2);border-color:var(--border-mid)}
+.ext-link-text{flex:1}
+.ext-link-title{font-size:13px;font-weight:600;color:var(--green);line-height:1.3}
+.ext-link-desc{font-size:11.5px;color:var(--ink-soft);margin-top:2px;line-height:1.4}
+.ext-link svg{color:var(--ink-faint);flex-shrink:0;margin-left:8px}
+
+.d-step-list{display:flex;flex-direction:column;gap:10px}
+.d-step{display:flex;gap:13px;align-items:flex-start}
+.d-step-num{background:var(--green);color:#fff;font-size:11px;font-weight:600;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.d-step-text{font-size:13.5px;line-height:1.65;color:var(--ink-mid);flex:1}
+
+.scroll-area::-webkit-scrollbar,.detail-scroll::-webkit-scrollbar{width:3px}
+.scroll-area::-webkit-scrollbar-thumb,.detail-scroll::-webkit-scrollbar-thumb{background:var(--border-mid);border-radius:2px}
+
+/* RECOVERY POSITION GUIDE */
+.recovery-card{background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:20px}
+.recovery-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;user-select:none;transition:background .15s}
+.recovery-header:active{background:var(--paper)}
+.recovery-header-text{}
+.recovery-header-title{font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:-0.1px}
+.recovery-header-sub{font-size:12px;color:var(--ink-soft);margin-top:2px}
+.recovery-tag{font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:4px;letter-spacing:0.5px;text-transform:uppercase;background:var(--green-pale);color:var(--green);margin-top:4px;display:inline-block}
+.recovery-body{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.4,0,.2,1)}
+.recovery-card.open .recovery-body{max-height:2400px}
+.recovery-card.open .recovery-chevron{transform:rotate(180deg);color:var(--green-mid)}
+.recovery-chevron{color:var(--ink-faint);transition:transform .25s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.recovery-inner{padding:0 16px 20px;border-top:1px solid var(--border)}
+
+.recovery-intro{font-size:13px;line-height:1.65;color:var(--ink-mid);margin-top:14px;margin-bottom:18px}
+
+.recovery-steps-grid{display:flex;flex-direction:column;gap:16px}
+.recovery-step-card{background:var(--paper);border-radius:var(--r-sm);border:1px solid var(--border);overflow:hidden}
+.recovery-step-header{display:flex;align-items:center;gap:10px;padding:10px 12px 8px}
+.recovery-step-num{background:var(--green);color:#fff;font-size:11px;font-weight:700;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.recovery-step-title{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
+.recovery-step-desc{font-size:12px;color:var(--ink-soft);margin-top:1px;line-height:1.4}
+.recovery-step-figure{width:100%;background:#fff;padding:12px 0 8px;display:flex;justify-content:center;border-top:1px solid var(--border)}
+.recovery-step-figure svg{width:90%;max-width:320px;height:auto}
+.recovery-step-note{padding:8px 12px 10px;font-size:12px;color:var(--ink-soft);line-height:1.5;font-style:italic}
+
+.recovery-section-label{font-size:10px;font-weight:600;color:var(--ink-faint);letter-spacing:1.1px;text-transform:uppercase;margin:18px 0 10px}
+
+.recovery-warning{background:var(--red-pale);border-left:2px solid var(--red);border-radius:0 6px 6px 0;padding:9px 12px;font-size:12px;color:var(--red);font-weight:500;line-height:1.6;margin-top:16px}
+.recovery-warning-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px;opacity:0.7}
+
+.recovery-applies{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.recovery-applies-label{font-size:10px;font-weight:600;color:var(--ink-faint);letter-spacing:1px;text-transform:uppercase;width:100%;margin-bottom:2px}
+.applies-chip{background:var(--paper-2);border:1px solid var(--border-mid);border-radius:6px;font-size:11.5px;color:var(--ink-mid);padding:4px 10px;font-weight:500}
+
+.recovery-infant-note{background:var(--amber-pale);border:1px solid rgba(122,74,0,0.15);border-left:3px solid var(--amber);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:11px 13px;margin-top:16px}
+.recovery-infant-note-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--amber);margin-bottom:5px}
+.recovery-infant-note p{font-size:12.5px;color:var(--amber);line-height:1.6;font-weight:500}
+</style>
+</head>
+<body>
+
+<div id="mainView">
+  <div class="header">
+    <div class="header-brand">
+      <div>
+        <div class="brand-title">Irish First Aid</div>
+        <div class="brand-sub">HSE Ireland &amp; Irish Red Cross Guidelines</div>
+      </div>
+      <div class="header-badge">For Trained First Aiders</div>
+    </div>
+    <div class="search-wrap">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search conditions or symptoms" oninput="filterCards()">
+    </div>
+  </div>
+
+  <div class="scroll-area">
+    <div id="installBanner">
+      <strong>Install for offline use</strong>
+      <p>Add to your home screen to use without an internet connection — useful at training venues.</p>
+      <div class="install-actions">
+        <button class="btn-install" id="installBtn">Add to Home Screen</button>
+        <button class="btn-dismiss" onclick="dismissInstall()">Not Now</button>
+      </div>
+    </div>
+    <div class="notice">
+      <p><strong>In a life-threatening emergency, call 112 or 999 immediately.</strong> This guide is a reference tool for trained first aiders and does not replace professional emergency services.</p>
+    </div>
+    <div class="section-label">Techniques</div>
+
+    <!-- RECOVERY POSITION GUIDE -->
+    <div class="recovery-card" id="recoveryCard">
+      <div class="recovery-header" onclick="toggleRecovery()">
+        <div class="recovery-header-text">
+          <div class="recovery-header-title">Recovery Position</div>
+          <div class="recovery-header-sub">Illustrated step-by-step guide</div>
+          <span class="recovery-tag">Applies to 6 conditions</span>
+        </div>
+        <svg class="recovery-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="recovery-body">
+        <div class="recovery-inner">
+          <p class="recovery-intro">The recovery position keeps an unconscious but breathing person's airway open and prevents choking on vomit. It is used across multiple emergencies — any time a person is unconscious and breathing but you are waiting for 112.</p>
+
+          <div class="recovery-section-label">Step-by-Step</div>
+          <div class="recovery-steps-grid">
+
+            <!-- STEP 1 -->
+            <div class="recovery-step-card">
+              <div class="recovery-step-header">
+                <div class="recovery-step-num">1</div>
+                <div>
+                  <div class="recovery-step-title">Kneel beside them</div>
+                  <div class="recovery-step-desc">Position yourself at their side. Straighten their legs.</div>
+                </div>
+              </div>
+              <div class="recovery-step-figure">
+                <svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Ground line -->
+                  <line x1="20" y1="95" x2="300" y2="95" stroke="#d4d8d0" stroke-width="1.5"/>
+                  <!-- PERSON lying flat on back -->
+                  <!-- Body -->
+                  <rect x="60" y="78" width="160" height="14" rx="7" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Head -->
+                  <circle cx="54" cy="82" r="10" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Left arm along body -->
+                  <rect x="68" y="85" width="60" height="6" rx="3" fill="#c8dcd0" stroke="#2d6e47" stroke-width="1.2"/>
+                  <!-- Right arm along body -->
+                  <rect x="68" y="73" width="60" height="6" rx="3" fill="#c8dcd0" stroke="#2d6e47" stroke-width="1.2"/>
+                  <!-- Legs straight -->
+                  <rect x="218" y="78" width="70" height="14" rx="7" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- RESCUER kneeling -->
+                  <!-- Torso -->
+                  <rect x="130" y="42" width="14" height="28" rx="5" fill="#1a4a2e" opacity="0.15" stroke="#1a4a2e" stroke-width="1.5"/>
+                  <!-- Head -->
+                  <circle cx="137" cy="35" r="9" fill="#1a4a2e" opacity="0.15" stroke="#1a4a2e" stroke-width="1.5"/>
+                  <!-- Knee on ground -->
+                  <ellipse cx="137" cy="74" rx="8" ry="5" fill="#1a4a2e" opacity="0.12" stroke="#1a4a2e" stroke-width="1.2"/>
+                  <!-- Label -->
+                  <text x="137" y="15" text-anchor="middle" font-size="10" fill="#6b7a6f" font-family="sans-serif">Kneel at their side</text>
+                  <text x="54" y="108" text-anchor="middle" font-size="9" fill="#6b7a6f" font-family="sans-serif">Lying flat, legs straight</text>
+                </svg>
+              </div>
+              <div class="recovery-step-note">Check they are breathing before proceeding. If not breathing — begin CPR.</div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="recovery-step-card">
+              <div class="recovery-step-header">
+                <div class="recovery-step-num">2</div>
+                <div>
+                  <div class="recovery-step-title">Position the near arm</div>
+                  <div class="recovery-step-desc">Place the arm closest to you at a right angle to their body, elbow bent, palm facing up.</div>
+                </div>
+              </div>
+              <div class="recovery-step-figure">
+                <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="20" y1="100" x2="300" y2="100" stroke="#d4d8d0" stroke-width="1.5"/>
+                  <!-- Body -->
+                  <rect x="60" y="83" width="160" height="14" rx="7" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Head -->
+                  <circle cx="54" cy="87" r="10" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Near arm (lower) — L shape: upper arm out, forearm up -->
+                  <!-- Upper arm horizontal -->
+                  <rect x="68" y="90" width="36" height="7" rx="3.5" fill="#4caf7a" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Forearm vertical upward -->
+                  <rect x="100" y="58" width="7" height="34" rx="3.5" fill="#4caf7a" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Palm indicator -->
+                  <ellipse cx="103" cy="55" rx="6" ry="4" fill="#4caf7a" stroke="#2d6e47" stroke-width="1.2"/>
+                  <!-- Far arm across body -->
+                  <rect x="100" y="76" width="60" height="6" rx="3" fill="#c8dcd0" stroke="#2d6e47" stroke-width="1.2"/>
+                  <!-- Legs -->
+                  <rect x="218" y="83" width="70" height="14" rx="7" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Right angle indicator -->
+                  <path d="M 100 90 L 100 83 L 107 83" stroke="#2d6e47" stroke-width="1" fill="none" stroke-dasharray="2,2"/>
+                  <!-- Annotation -->
+                  <text x="88" y="48" text-anchor="middle" font-size="9" fill="#2d6e47" font-family="sans-serif" font-weight="600">Palm up</text>
+                  <text x="88" y="118" text-anchor="middle" font-size="9" fill="#6b7a6f" font-family="sans-serif">Near arm at right angle</text>
+                </svg>
+              </div>
+              <div class="recovery-step-note">This arm acts as a stop to prevent rolling too far onto the front.</div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="recovery-step-card">
+              <div class="recovery-step-header">
+                <div class="recovery-step-num">3</div>
+                <div>
+                  <div class="recovery-step-title">Bring the far hand to their cheek</div>
+                  <div class="recovery-step-desc">Take their far hand and place the back of it against the near cheek. Hold it there.</div>
+                </div>
+              </div>
+              <div class="recovery-step-figure">
+                <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="20" y1="100" x2="300" y2="100" stroke="#d4d8d0" stroke-width="1.5"/>
+                  <!-- Body -->
+                  <rect x="60" y="83" width="160" height="14" rx="7" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Head -->
+                  <circle cx="54" cy="87" r="10" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Near arm in position -->
+                  <rect x="68" y="90" width="36" height="7" rx="3.5" fill="#4caf7a" stroke="#2d6e47" stroke-width="1.5"/>
+                  <rect x="100" y="60" width="7" height="32" rx="3.5" fill="#4caf7a" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Far arm — drawn across body toward cheek -->
+                  <!-- Upper portion across body -->
+                  <path d="M 160 79 Q 120 72 95 75 Q 70 78 62 83" stroke="#e85d04" stroke-width="6" fill="none" stroke-linecap="round"/>
+                  <!-- Hand at cheek -->
+                  <ellipse cx="60" cy="80" rx="7" ry="5" fill="#e85d04" stroke="#c94e00" stroke-width="1.2"/>
+                  <!-- Arrow showing movement -->
+                  <path d="M 145 70 Q 110 60 78 72" stroke="#e85d04" stroke-width="1.5" fill="none" stroke-dasharray="3,2" marker-end="url(#arr)"/>
+                  <defs>
+                    <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                      <path d="M0,0 L6,3 L0,6 Z" fill="#e85d04"/>
+                    </marker>
+                  </defs>
+                  <!-- Legs -->
+                  <rect x="218" y="83" width="70" height="14" rx="7" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <text x="160" y="60" text-anchor="middle" font-size="9" fill="#e85d04" font-family="sans-serif" font-weight="600">Far hand → cheek</text>
+                  <text x="160" y="118" text-anchor="middle" font-size="9" fill="#6b7a6f" font-family="sans-serif">Back of hand against near cheek</text>
+                </svg>
+              </div>
+              <div class="recovery-step-note">Keep holding their hand against their cheek with your hand to guide and protect the head as you roll them.</div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="recovery-step-card">
+              <div class="recovery-step-header">
+                <div class="recovery-step-num">4</div>
+                <div>
+                  <div class="recovery-step-title">Bend the far knee up</div>
+                  <div class="recovery-step-desc">With your other hand, pull the far knee up so the foot is flat on the ground.</div>
+                </div>
+              </div>
+              <div class="recovery-step-figure">
+                <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="20" y1="100" x2="300" y2="100" stroke="#d4d8d0" stroke-width="1.5"/>
+                  <!-- Body -->
+                  <rect x="60" y="83" width="155" height="14" rx="7" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Head -->
+                  <circle cx="54" cy="87" r="10" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Near arm up -->
+                  <rect x="68" y="90" width="36" height="7" rx="3.5" fill="#4caf7a" stroke="#2d6e47" stroke-width="1.5"/>
+                  <rect x="100" y="60" width="7" height="32" rx="3.5" fill="#4caf7a" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Far hand at cheek -->
+                  <ellipse cx="60" cy="80" rx="7" ry="5" fill="#e85d04" stroke="#c94e00" stroke-width="1.2"/>
+                  <!-- Near leg straight -->
+                  <rect x="213" y="83" width="70" height="14" rx="7" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Far leg bent — thigh and lower leg -->
+                  <!-- Thigh (angled up) -->
+                  <path d="M 213 83 L 248 55" stroke="#e85d04" stroke-width="9" stroke-linecap="round"/>
+                  <!-- Lower leg (vertical down to ground) -->
+                  <path d="M 248 55 L 248 100" stroke="#e85d04" stroke-width="9" stroke-linecap="round"/>
+                  <!-- Foot -->
+                  <ellipse cx="248" cy="100" rx="8" ry="4" fill="#e85d04" stroke="#c94e00" stroke-width="1.2"/>
+                  <!-- Arrow on knee -->
+                  <text x="262" y="55" text-anchor="start" font-size="9" fill="#e85d04" font-family="sans-serif" font-weight="600">Knee up</text>
+                  <text x="160" y="118" text-anchor="middle" font-size="9" fill="#6b7a6f" font-family="sans-serif">Foot flat on ground, knee pointing up</text>
+                </svg>
+              </div>
+              <div class="recovery-step-note">This bent knee will act as the lever you use to roll them in the next step.</div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="recovery-step-card">
+              <div class="recovery-step-header">
+                <div class="recovery-step-num">5</div>
+                <div>
+                  <div class="recovery-step-title">Roll them toward you</div>
+                  <div class="recovery-step-desc">Pull the bent knee toward you to roll them onto their side. Guide the head with your other hand.</div>
+                </div>
+              </div>
+              <div class="recovery-step-figure">
+                <svg viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="20" y1="108" x2="300" y2="108" stroke="#d4d8d0" stroke-width="1.5"/>
+                  <!-- Person on side — viewed from end -->
+                  <!-- Torso (side-on ellipse) -->
+                  <ellipse cx="160" cy="92" rx="22" ry="14" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Head -->
+                  <circle cx="105" cy="88" r="12" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Neck -->
+                  <rect x="115" y="84" width="20" height="8" rx="4" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.2"/>
+                  <!-- Lower arm (near, against ground) -->
+                  <path d="M 138 98 L 105 108" stroke="#4caf7a" stroke-width="7" stroke-linecap="round"/>
+                  <!-- Upper arm (far, bent at elbow, hand at face) -->
+                  <path d="M 138 86 L 115 80" stroke="#c8dcd0" stroke-width="7" stroke-linecap="round"/>
+                  <!-- Top leg bent forward -->
+                  <path d="M 182 92 L 215 75 L 230 108" stroke="#e85d04" stroke-width="9" stroke-linecap="round" fill="none"/>
+                  <!-- Bottom leg straight -->
+                  <path d="M 182 100 L 270 108" stroke="#e8f0eb" stroke-width="9" stroke-linecap="round"/>
+                  <path d="M 182 100 L 270 108" stroke="#2d6e47" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <!-- Rolling arrow -->
+                  <path d="M 190 60 Q 160 45 130 62" stroke="#1a4a2e" stroke-width="1.5" fill="none" stroke-dasharray="3,2" marker-end="url(#arr2)"/>
+                  <defs>
+                    <marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                      <path d="M0,0 L6,3 L0,6 Z" fill="#1a4a2e"/>
+                    </marker>
+                  </defs>
+                  <text x="160" y="30" text-anchor="middle" font-size="9" fill="#1a4a2e" font-family="sans-serif" font-weight="600">Roll toward you</text>
+                  <text x="160" y="126" text-anchor="middle" font-size="9" fill="#6b7a6f" font-family="sans-serif">Pull bent knee — guide head with other hand</text>
+                </svg>
+              </div>
+              <div class="recovery-step-note">Use the bent knee as the lever — pull it toward you firmly. Keep one hand supporting the head throughout the roll.</div>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="recovery-step-card">
+              <div class="recovery-step-header">
+                <div class="recovery-step-num">6</div>
+                <div>
+                  <div class="recovery-step-title">Open the airway and monitor</div>
+                  <div class="recovery-step-desc">Tilt the head back gently to open the airway. Adjust the hand position under the cheek. Check they are still breathing.</div>
+                </div>
+              </div>
+              <div class="recovery-step-figure">
+                <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="20" y1="118" x2="300" y2="118" stroke="#d4d8d0" stroke-width="1.5"/>
+                  <!-- Person in final recovery position — side view -->
+                  <!-- Torso -->
+                  <ellipse cx="165" cy="100" rx="24" ry="15" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Head — tilted back -->
+                  <circle cx="108" cy="94" r="13" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1.5"/>
+                  <!-- Neck extended (head tilt) -->
+                  <path d="M 120 96 Q 130 90 140 94" stroke="#2d6e47" stroke-width="5" stroke-linecap="round"/>
+                  <!-- Mouth indicator (open airway) -->
+                  <path d="M 101 98 Q 107 103 113 98" stroke="#2d6e47" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <!-- Lower arm flat against ground -->
+                  <path d="M 142 108 L 100 118" stroke="#4caf7a" stroke-width="7" stroke-linecap="round"/>
+                  <!-- Hand under cheek -->
+                  <ellipse cx="112" cy="106" rx="7" ry="5" fill="#4caf7a" stroke="#2d6e47" stroke-width="1.2"/>
+                  <!-- Top bent leg -->
+                  <path d="M 188 100 L 225 80 L 240 118" stroke="#e85d04" stroke-width="9" stroke-linecap="round" fill="none"/>
+                  <!-- Bottom straight leg -->
+                  <path d="M 188 110 L 280 118" stroke="#e8f0eb" stroke-width="9" stroke-linecap="round"/>
+                  <path d="M 188 110 L 280 118" stroke="#2d6e47" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <!-- Airway open arrow -->
+                  <path d="M 100 75 L 100 60" stroke="#2d6e47" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr3)"/>
+                  <defs>
+                    <marker id="arr3" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                      <path d="M0,0 L6,3 L0,6 Z" fill="#2d6e47"/>
+                    </marker>
+                  </defs>
+                  <text x="100" y="52" text-anchor="middle" font-size="9" fill="#2d6e47" font-family="sans-serif" font-weight="600">Airway open</text>
+                  <!-- Check mark area -->
+                  <rect x="220" y="45" width="72" height="32" rx="6" fill="#e8f0eb" stroke="#2d6e47" stroke-width="1"/>
+                  <text x="256" y="58" text-anchor="middle" font-size="8.5" fill="#1a4a2e" font-family="sans-serif" font-weight="600">Check breathing</text>
+                  <text x="256" y="70" text-anchor="middle" font-size="8" fill="#2d6e47" font-family="sans-serif">every 30 secs</text>
+                  <text x="160" y="136" text-anchor="middle" font-size="9" fill="#6b7a6f" font-family="sans-serif">Stable recovery position — airway open, stable</text>
+                </svg>
+              </div>
+              <div class="recovery-step-note">The top knee prevents rolling forward. The bottom arm prevents rolling back. Check breathing every 30 seconds and recheck until 112 arrives.</div>
+            </div>
+
+          </div><!-- end steps grid -->
+
+          <div class="recovery-section-label">When to use the recovery position</div>
+          <div class="recovery-applies">
+            <div class="recovery-applies-label">Applies to these conditions in this app</div>
+            <span class="applies-chip">Stroke</span>
+            <span class="applies-chip">Cardiac Arrest (post-ROSC)</span>
+            <span class="applies-chip">Anaphylaxis</span>
+            <span class="applies-chip">Seizures</span>
+            <span class="applies-chip">Head Injury</span>
+            <span class="applies-chip">Drowning</span>
+          </div>
+
+          <div class="recovery-warning" style="margin-top:16px">
+            <div class="recovery-warning-label">Do Not Use If</div>
+            Do not place in the recovery position if a spinal injury is suspected — keep still and wait for emergency services. Do not use if the person is not breathing — begin CPR instead.
+          </div>
+
+          <div class="recovery-infant-note">
+            <div class="recovery-infant-note-title">Infants under 12 months</div>
+            <p>Do not use the standard recovery position for infants. Instead, hold the infant face-down along your forearm, head slightly lower than the body, keeping the airway open. Support the head with your hand.</p>
+          </div>
+
+          <div class="recovery-section-label" style="margin-top:18px">Key checks while waiting for 112</div>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-top:0">
+            <div class="recovery-step-note" style="background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 12px;font-style:normal;font-size:12.5px;color:var(--ink-mid)">Check breathing every 30 seconds — look for chest rise, listen, feel for breath on your cheek.</div>
+            <div class="recovery-step-note" style="background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 12px;font-style:normal;font-size:12.5px;color:var(--ink-mid)">If they stop breathing at any point — roll them onto their back and begin CPR immediately.</div>
+            <div class="recovery-step-note" style="background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 12px;font-style:normal;font-size:12.5px;color:var(--ink-mid)">Do not leave them alone — stay with them until paramedics arrive.</div>
+            <div class="recovery-step-note" style="background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 12px;font-style:normal;font-size:12.5px;color:var(--ink-mid)">If they must remain in the recovery position for more than 30 minutes, carefully roll them to the other side to relieve pressure on the lower arm.</div>
+          </div>
+
+        </div><!-- end recovery-inner -->
+      </div><!-- end recovery-body -->
+    </div><!-- end recovery-card -->
+
+    <div class="section-label">Emergency Conditions</div>
+    <div class="condition-list" id="conditionList"></div>
+    <div class="no-results" id="noResults">
+      <svg class="no-results-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p>No conditions matched your search.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><strong>Source:</strong> HSE Ireland &amp; Irish Red Cross · <strong>Emergency:</strong> 112 or 999<br>
+    GP Out-of-Hours: <strong>1850 22 44 77</strong> · Poisons: <strong>01 809 2166</strong><br>
+    Statistics verified May 2026 · Reference only · v5.0</p>
+  </div>
+</div>
+
+<div id="detailPanel">
+  <div class="detail-header">
+    <div class="detail-nav">
+      <button class="back-btn" onclick="closeDetail()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        All Conditions
+      </button>
+    </div>
+    <div class="detail-condition-name" id="detailTitle"></div>
+    <div class="detail-condition-sub" id="detailSub"></div>
+    <div class="detail-sev-row">
+      <span class="detail-sev-tag" id="detailSevTag"></span>
+      <span class="detail-source">HSE Ireland / Irish Red Cross</span>
+    </div>
+  </div>
+  <div class="detail-tabs">
+    <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+    <button class="tab-btn" onclick="switchTab('kit')">Kit</button>
+    <button class="tab-btn" onclick="switchTab('instructor')">Instructor</button>
+    <button class="tab-btn" onclick="switchTab('resources')">Resources</button>
+  </div>
+  <div class="detail-scroll">
+    <div class="tab-pane active" id="tab-overview"></div>
+    <div class="tab-pane" id="tab-kit"></div>
+    <div class="tab-pane" id="tab-instructor"></div>
+    <div class="tab-pane" id="tab-resources"></div>
+  </div>
+</div>
+
+<script>
+const CONDITIONS = [
+  {
+    title:"Cardiac Arrest",
+    sub:"Cessation of effective cardiac output",
+    sev:"critical",
+    symptoms:["Unresponsive to voice or touch","Absent or abnormal breathing — gasping or gurgling","No palpable central pulse","Sudden collapse without warning","Cyanosis — blue or grey discolouration of lips and face"],
+    steps:["Call 112 immediately. State location and 'cardiac arrest'.","Confirm scene safety before approaching.","Tilt head back, lift chin. Check for normal breathing for no more than 10 seconds.","Begin CPR: 30 chest compressions at centre of sternum, depth 5–6 cm, rate 100–120 per minute.","Deliver 2 rescue breaths if trained and equipped; otherwise perform uninterrupted hands-only CPR.","Continue 30:2 without interruption until AED arrives or paramedics take over.","Attach AED as soon as available. Follow all voice prompts without delay."],
+    warning:"Do not interrupt CPR to check for pulse. Do not delay defibrillation once an AED is available. Bystander CPR before ambulance arrival is the single greatest determinant of survival.",
+    detail:{
+      overview:{
+        summary:"Cardiac arrest occurs when the heart ceases to generate effective circulatory output. Without intervention, irreversible brain damage begins within 4–6 minutes. The HSE Out-of-Hospital Cardiac Arrest Register (OHCAR) recorded 2,857 out-of-hospital cardiac arrests in Ireland in 2023 where resuscitation was attempted — of whom 8.4% survived to hospital discharge.",
+        stats:[{value:"2,857",label:"OHCAs in Ireland, 2023 (OHCAR)"},{value:"8.4%",label:"Survival to discharge, 2023 (OHCAR)"},{value:"2–4×",label:"Survival improvement with bystander CPR"},{value:"68%",label:"OHCAs occurring in the home (OHCAR 2023)"}],
+        keyPoints:["Survival falls by 7–10% for every minute without CPR or defibrillation. Bystander CPR can double to quadruple survival rates.","Hands-only CPR (without rescue breaths) is highly effective for witnessed adult cardiac arrest.","AEDs are located in many Irish public buildings, sports facilities, and GAA clubs — locate your nearest one at ndf.ie.","Irish law provides Good Samaritan legal protection to lay rescuers acting in good faith (Civil Liability Act 1961)."],
+        source:"HSE OHCAR Annual Report 2023; Lancet Public Health 2020."
+      },
+      kit:{
+        note:"A cardiac arrest is survivable with fast action and the right equipment. The AED is the single most important piece of kit — know exactly where yours is before every session.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"AED (Automated External Defibrillator)",note:"Wall-mounted or portable. Know its exact location before every session. The device will guide you through use with voice instructions."},
+              {name:"Pair of disposable gloves",note:"Nitrile, medium and large sizes. Required before any patient contact."},
+              {name:"CPR face shield or pocket mask",note:"Enables rescue breaths hygienically. Pocket masks with one-way valve are preferred over basic shields."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Foil emergency blanket",note:"Use post-resuscitation to prevent heat loss. Hypothermia worsens cardiac outcomes."},
+              {name:"Scissors or clothing shears",note:"To rapidly expose the chest for AED pad placement without moving the patient."},
+              {name:"Alcohol wipes",note:"Dry and clean the chest before applying AED pads if the patient is sweating — improves pad contact."}
+            ]
+          },
+          {
+            title:"Useful for clubs and competition venues",
+            priority:"useful",
+            items:[
+              {name:"Second AED",note:"Recommended if your venue is large or if the nearest public AED is more than 3 minutes away."},
+              {name:"CPR feedback device",note:"Some AEDs have this built in. Gives real-time feedback on compression depth and rate during CPR."},
+              {name:"Session register",note:"Not a kit item, but always have names and ages of those training — vital information for emergency services."}
+            ]
+          }
+        ],
+        where:"Purchase AEDs from medical suppliers such as Cardiac Science, Zoll, or Defibtech. Irish distributors include AED Ireland (aedireland.ie) and Cardiac Services (cardiacservices.ie). Expect to pay €1,000–€1,800 for a quality AED. Wall cabinets are available separately."
+      },
+      instructor:{
+        context:"Cardiac arrest during martial arts is rare but documented — associated with blunt chest trauma (commotio cordis), undetected structural heart disease, or exertion-triggered arrhythmia. Any young athlete who collapses suddenly and does not respond immediately should be treated as cardiac arrest until proven otherwise.",
+        recognition:["A person who faints will regain consciousness within 1–2 minutes when placed flat. Cardiac arrest will not — this is the key distinction.","Agonal breathing (gasping or gurgling) is not normal breathing — begin CPR immediately.","Collapse mid-drill or immediately after a blow to the chest requires immediate assessment.","Do not wait for a pulse check if the person is unresponsive and not breathing normally."],
+        escalation:"Call 112 before beginning CPR if you are alone. If others are present, assign one person to call 112, another to retrieve the AED, and begin CPR immediately without waiting.",
+        dojoTips:["Locate your nearest AED before every training session — do not assume you know where it is.","Ensure at least two members per class hold a current PHECC-approved First Aid Responder (FAR) qualification.","Complete a session register — it provides vital information for emergency services.","Consider a dedicated AED in your dojo if the nearest public one is more than 3 minutes away."]
+      },
+      resources:[
+        {title:"HSE OHCAR — Cardiac Arrest Register",desc:"Annual Irish cardiac arrest statistics and outcomes",url:"https://www.hse.ie/eng/services/news/newsfeatures/out-of-hospital-cardiac-arrest-register-ohcar-/"},
+        {title:"National Defibrillator Network",desc:"Map of AED locations across Ireland",url:"https://ndf.ie"},
+        {title:"Irish Heart Foundation — CPR & AED",desc:"National CPR guidelines and training",url:"https://irishheart.ie/your-heart/heart-attack-stroke/cpr-and-aed/"},
+        {title:"Irish Red Cross — First Aid Courses",desc:"PHECC-approved first aid training in Ireland",url:"https://www.redcross.ie/first-aid-training/"}
+      ]
+    }
+  },
+  {
+    title:"Stroke",
+    sub:"Acute cerebrovascular event",
+    sev:"critical",
+    symptoms:["Facial drooping on one side — asymmetrical smile","Arm weakness — one arm drifts when both raised","Speech difficulty — slurred, confused, or absent","Sudden severe headache — 'thunderclap' onset","Visual disturbance — sudden loss or double vision","Loss of balance or coordination"],
+    steps:["Apply FAST: Face — Arm — Speech — Time to call 112.","Call 112 immediately. State clearly 'I believe this is a stroke'.","Note the exact time symptoms first appeared — relay to paramedics.","Keep the person still and calm. No food, fluids, or medication.","If unconscious and breathing: recovery position.","If breathing ceases: begin CPR immediately."],
+    warning:"Do not administer aspirin unless specifically instructed by the 112 operator. Treatment efficacy is time-dependent — thrombolysis is most effective within 4.5 hours of onset.",
+    detail:{
+      overview:{
+        summary:"Stroke is the leading cause of acquired adult neurological disability in Ireland. The Irish National Audit of Stroke (INAS) recorded 5,810 cases across 23 hospitals in 2023 — giving an estimated national total of over 7,000 strokes per year. Approximately 83% are ischaemic (clot) and 17% haemorrhagic (bleed). A TIA ('mini-stroke') produces the same symptoms but resolves within 24 hours — it is still a medical emergency.",
+        stats:[{value:"7,000+",label:"Estimated strokes in Ireland per year (INAS 2023)"},{value:"~83%",label:"Ischaemic (clot) — global evidence"},{value:"4.5hrs",label:"Maximum window for thrombolysis treatment"},{value:"~77%",label:"FAST sensitivity (meta-analysis, range 64–97%)"}],
+        keyPoints:["FAST has a pooled sensitivity of approximately 77% — it captures most strokes but not all. When in doubt, call 112.","All Irish acute hospitals have designated stroke units. Major centres offer mechanical thrombectomy (clot removal).","TIA must be assessed urgently — symptoms may fully resolve but stroke risk in the following days is high.","Time is brain — every minute of delay costs neurons. Do not drive to hospital."],
+        source:"Irish National Audit of Stroke (INAS) 2023; Frontiers in Neurology meta-analysis 2021."
+      },
+      kit:{
+        note:"There is no kit that treats a stroke — your response is recognition, a fast 112 call, and keeping the person safe until paramedics arrive. The kit here is about being prepared to manage the person safely.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"Disposable gloves",note:"Required before any patient contact."},
+              {name:"Foil emergency blanket",note:"Keep the person warm while waiting for the ambulance — do not let them get cold."},
+              {name:"Phone with 112 speed dial",note:"Not a kit item per se, but always have a charged phone accessible at training. Eircode or venue address should be known."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Recovery position guide card",note:"A laminated reference card for correct recovery position technique — useful under pressure."},
+              {name:"CPR face shield",note:"If the person loses consciousness and stops breathing, CPR may be required while waiting for 112."},
+              {name:"Pen and paper or incident form",note:"Note the exact time symptoms started — this is clinically critical information for the stroke team."}
+            ]
+          },
+          {
+            title:"Useful for clubs and competition venues",
+            priority:"useful",
+            items:[
+              {name:"Blood glucose monitor",note:"Hypoglycaemia mimics stroke. If a monitor is available and you are trained to use it, a blood sugar check can help paramedics. Do not delay 112 to find one."},
+              {name:"Printed venue Eircode and address",note:"Post the Eircode visibly near your entrance. Paramedics rely on it for faster response."}
+            ]
+          }
+        ],
+        where:"Recovery position cards and basic first aid reference materials are available from the Irish Red Cross (redcross.ie) and St John Ambulance Ireland (stjohn.ie)."
+      },
+      instructor:{
+        context:"Stroke during training is uncommon in young athletes but occurs across the instructor and student population. Certain techniques — including sustained chokeholds and forceful neck manipulation — have been associated with vertebral artery dissection, which can cause posterior circulation stroke.",
+        recognition:["Stroke may initially present as apparent exhaustion, confusion, or drunkenness — do not dismiss.","Ask the person to smile and raise both arms simultaneously — asymmetry is the key sign.","Any FAST symptom following a blow to the head or neck requires an immediate 112 call.","A TIA may fully resolve within minutes — the person may insist they are fine. They still need urgent medical assessment."],
+        escalation:"Any suspected stroke is a 112 call. Do not drive to hospital — ambulance paramedics can pre-alert the stroke team and begin assessment en route, significantly improving outcomes.",
+        dojoTips:["Know the location of the nearest stroke unit — these are in major acute hospitals across Ireland.","Document any technique or event that preceded neurological symptoms for the medical record.","Post your venue Eircode visibly near the entrance at all times.","Ensure instructors are familiar with FAST — run a brief refresher at least once a year."]
+      },
+      resources:[
+        {title:"Stroke Ireland",desc:"Patient support. Helpline: 1800 742 823",url:"https://strokeireland.ie"},
+        {title:"Irish National Audit of Stroke (INAS)",desc:"Annual national stroke data and quality reports",url:"https://www.noca.ie/audits/irish-national-audit-of-stroke/"},
+        {title:"HSE — Stroke",desc:"HSE guidance on stroke recognition and treatment",url:"https://www2.hse.ie/conditions/stroke/"}
+      ]
+    }
+  },
+  {
+    title:"Choking",
+    sub:"Foreign body airway obstruction",
+    sev:"critical",
+    symptoms:["Inability to speak, cry, or produce sound","Universal choking sign — both hands at throat","Silent or completely ineffective cough","Cyanosis — blue discolouration of lips and fingertips","High-pitched inspiratory stridor","Rapidly deteriorating consciousness"],
+    steps:["Confirm: ask 'Are you choking?' — if they can cough forcefully, encourage continued coughing.","Severe obstruction — cannot breathe or speak: deliver up to 5 firm back blows between scapulae with heel of hand.","If back blows are ineffective: give up to 5 abdominal thrusts — stand behind, fist above umbilicus, pull sharply inward and upward.","Alternate 5 back blows and 5 abdominal thrusts continuously.","Call 112 if obstruction is not cleared or consciousness is lost.","If unconscious: lower carefully, begin CPR. Check mouth each time the airway is opened — remove visible objects only."],
+    warning:"In infants under 12 months: back blows and chest thrusts ONLY — abdominal thrusts are contraindicated. In pregnancy: chest thrusts only. Any patient who received abdominal thrusts must attend A&E for internal injury assessment.",
+    detail:{
+      overview:{
+        summary:"Foreign body airway obstruction (FBAO) is a time-critical emergency. Complete obstruction causes unconsciousness within 2–3 minutes. Partial obstruction allows some airflow and an effective cough — encourage coughing and do not intervene physically. Physical intervention is indicated only when the cough is absent or completely ineffective.",
+        stats:[{value:"<3 min",label:"To unconsciousness with full obstruction"},{value:"5",label:"Back blows before attempting abdominal thrusts"},{value:"12 months",label:"Age below which Heimlich is contraindicated"},{value:"A&E",label:"Mandatory after any abdominal thrusts"}],
+        keyPoints:["Blind finger sweeps are contraindicated — they risk pushing the object deeper.","Abdominal thrusts can cause rib fractures and internal injury — A&E attendance is always required after their use.","During CPR for a choking victim, chest compressions can generate enough pressure to expel a lodged foreign body.","In infants and in pregnancy, use chest thrusts — never abdominal thrusts."],
+        source:"Resuscitation Council UK Guidelines 2021; HSE Ireland guidance."
+      },
+      kit:{
+        note:"For choking, your technique is the primary intervention — kit plays a secondary role. However, having the right items nearby speeds up management if the person loses consciousness.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"Disposable gloves",note:"Required before any patient contact, particularly if performing a mouth check after CPR."},
+              {name:"CPR face shield or pocket mask",note:"Required if the person loses consciousness and CPR becomes necessary."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Choking protocol reference card",note:"A laminated back-blows and Heimlich technique card — useful for instructors who need a prompt under pressure."},
+              {name:"Incident record form",note:"Document time, mechanism, and whether abdominal thrusts were given — the A&E team needs to know."}
+            ]
+          },
+          {
+            title:"Useful for clubs and venues",
+            priority:"useful",
+            items:[
+              {name:"LifeVac airway clearance device",note:"A suction device used as an adjunct to standard first aid in some Irish schools and care settings. It is not a replacement for back blows and abdominal thrusts but may assist when standard techniques fail."},
+              {name:"No food or sweets policy sign",note:"A simple printed notice for children's classes. Prevention is the most effective intervention."}
+            ]
+          }
+        ],
+        where:"LifeVac devices are available from lifevac.net and selected Irish first aid suppliers. Laminated reference cards are available from the Irish Red Cross and St John Ambulance Ireland."
+      },
+      instructor:{
+        context:"Choking risk in a martial arts setting includes dislodged mouthguards, water consumed carelessly, and in children's classes, food or sweets. Neck compression techniques are distinct from FBAO — removal of the compressive force and airway assessment is the correct response.",
+        recognition:["An athlete who stops mid-drill and clutches the throat has FBAO until proven otherwise.","In noisy environments, inability to shout or vocalise may be the first detectable sign.","A silent cough after removing a mouthguard warrants immediate assessment.","Do not confuse choking with a panic attack — choking produces a silent or ineffective cough; a panic attack does not."],
+        escalation:"Call 112 if obstruction is not cleared after one complete cycle of 5 back blows and 5 abdominal thrusts, or if the person loses consciousness.",
+        dojoTips:["No food or sweets during or between children's class sessions.","Mouthguards must be secured — not held loosely between rounds.","Ensure instructors can demonstrate back blows and abdominal thrusts correctly — technique matters.","Post a choking protocol card inside the lid of your first aid kit."]
+      },
+      resources:[
+        {title:"HSE — Choking",desc:"HSE guidance on choking management",url:"https://www2.hse.ie/conditions/choking/"},
+        {title:"Irish Red Cross — First Aid Training",desc:"PHECC-approved courses covering FBAO",url:"https://www.redcross.ie/first-aid-training/"},
+        {title:"Resuscitation Council UK — FBAO",desc:"Evidence-based FBAO guidelines applied in Ireland",url:"https://www.resus.org.uk/library/2021-resuscitation-guidelines/adult-basic-life-support-guidelines"}
+      ]
+    }
+  },
+  {
+    title:"Anaphylaxis",
+    sub:"Severe systemic allergic reaction",
+    sev:"critical",
+    symptoms:["Oropharyngeal swelling — stridor, muffled voice","Acute respiratory compromise — wheeze, bronchospasm","Distributive shock — rapid weak pulse, hypotension, pallor","Urticaria, angioedema, or widespread erythema","Sudden loss of consciousness or near-syncope","Nausea, vomiting, or abdominal cramping"],
+    steps:["Call 112 immediately.","Administer adrenaline auto-injector (EpiPen) to outer mid-thigh — through clothing is acceptable.","Sit upright if respiratory symptoms predominate; lie flat with legs elevated if collapse or hypotension.","A second EpiPen dose may be given after 5–15 minutes if symptoms are not improving.","If unconscious and breathing: recovery position.","If breathing ceases: begin CPR.","Hospital assessment is mandatory even if symptoms resolve — biphasic reactions occur in approximately 5–10% of cases."],
+    warning:"Adrenaline is the only first-line treatment. Antihistamines are not adequate primary treatment and must not delay adrenaline. Never allow the patient to stand or walk — vasodilation can cause cardiovascular collapse in the upright position.",
+    detail:{
+      overview:{
+        summary:"Anaphylaxis is a severe, rapid-onset, life-threatening systemic allergic reaction. Common Irish triggers include peanuts and tree nuts, shellfish, cow's milk (particularly in children), bee and wasp venom, latex, and penicillin. Lifetime prevalence is estimated at 0.05–2% of the population. Biphasic reactions — return of symptoms after initial resolution — occur in approximately 5–10% of cases.",
+        stats:[{value:"0.05–2%",label:"Lifetime prevalence estimate (European data)"},{value:"5–10%",label:"Biphasic reaction rate (PMC systematic review)"},{value:"6hrs",label:"Minimum hospital observation recommended"},{value:"2",label:"EpiPens should always be prescribed and carried"}],
+        keyPoints:["Adrenaline is the only effective first-line treatment — do not hesitate to use an EpiPen.","Biphasic anaphylaxis occurs in ~5–10% of cases — hospital assessment is mandatory even after apparent recovery.","EpiPens are available on the GMS in Ireland and should be prescribed in pairs.","Exercise-induced anaphylaxis is a real condition — physical exertion alone, or combined with a specific food consumed beforehand, can trigger anaphylaxis."],
+        source:"PMC Systematic Review (Grunau et al., 2014); World Allergy Organization Journal 2024; HSE Ireland."
+      },
+      kit:{
+        note:"Anaphylaxis is one condition where a specific item of kit — the EpiPen — is the difference between life and death. Knowing where the at-risk student's EpiPen is before an incident occurs is non-negotiable.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"EpiPen or adrenaline auto-injector",note:"The student's own prescribed EpiPen should be with them at all times during training. You should know exactly where it is before every session. Administer to outer mid-thigh — through clothing is fine."},
+              {name:"Disposable gloves",note:"Required before patient contact."},
+              {name:"CPR face shield or pocket mask",note:"If the person loses consciousness and stops breathing, CPR will be required."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Second EpiPen",note:"A second dose may be needed after 5–15 minutes if there is no improvement. The student should carry two — confirm this before every session with affected students."},
+              {name:"Foil emergency blanket",note:"Keep the person warm and still while waiting for the ambulance."},
+              {name:"Anaphylaxis action plan (printed)",note:"Request a written emergency plan from the student's GP or parent. Keep a copy in your first aid kit. It will confirm the exact protocol for that individual."}
+            ]
+          },
+          {
+            title:"Useful for clubs and competition venues",
+            priority:"useful",
+            items:[
+              {name:"Spare club EpiPen",note:"Available on prescription. Some clubs purchase a spare for the first aid kit. Discuss with a GP or pharmacist — prescribing requirements apply."},
+              {name:"Allergy register",note:"A simple list of students with known allergies, their triggers, their EpiPen location, and their emergency contact. Review it at the start of every session."},
+              {name:"Latex-free gloves",note:"If any student has a latex allergy, all gloves in your kit should be nitrile or vinyl — never latex."}
+            ]
+          }
+        ],
+        where:"EpiPens are prescription-only in Ireland and available through pharmacies on the GMS. Allergy Ireland (allergyireland.ie) provides guidance on emergency planning for clubs and schools. MedicAlert bracelets for affected students: medicalert.ie."
+      },
+      instructor:{
+        context:"Anaphylaxis in a martial arts setting may be triggered by insect stings at outdoor training, food allergens in shared facilities or at competitions, latex from training gloves, and exercise-induced anaphylaxis — where physical exertion alone, or combined with a specific food, triggers the reaction.",
+        recognition:["Exercise-induced anaphylaxis typically begins with urticaria (hives), progressing rapidly to systemic symptoms during sustained activity.","Throat tightness and a change in voice quality indicate laryngeal oedema — call 112 without delay.","A student who reports feeling 'wrong' after an insect sting should be assessed immediately, not told to sit down.","Distinguish anaphylaxis from a panic attack: anaphylaxis produces objective signs — hives, wheeze, stridor. A panic attack does not."],
+        escalation:"If symptoms are consistent with anaphylaxis and an EpiPen is available — administer it. Do not wait for symptoms to worsen. Call 112 regardless of how well the person responds to the EpiPen.",
+        dojoTips:["Maintain a register of students with known anaphylaxis and the location of their EpiPens — review it before every session.","Request written emergency protocols from parents of affected children before they begin training.","Ensure all instructors know the EpiPen location and are trained in its administration.","If any student is allergic to insect stings, avoid outdoor training in areas with high wasp or bee activity during summer months."]
+      },
+      resources:[
+        {title:"Allergy Ireland",desc:"Patient and club resources for anaphylaxis",url:"https://www.allergyireland.ie"},
+        {title:"HSE — Anaphylaxis",desc:"HSE clinical guidance on anaphylaxis management",url:"https://www2.hse.ie/conditions/anaphylaxis/"},
+        {title:"MedicAlert Ireland",desc:"Medical ID bracelets for at-risk students",url:"https://www.medicalert.ie"}
+      ]
+    }
+  },
+  {
+    title:"Severe Bleeding",
+    sub:"Haemorrhage and haemostasis",
+    sev:"critical",
+    symptoms:["Active, uncontrolled external blood loss","Blood saturating dressings rapidly","Pallor, clamminess, and diaphoresis","Dizziness, confusion, or altered consciousness","Rapid, thready pulse","Restlessness and air hunger — signs of developing shock"],
+    steps:["Call 112 if bleeding is uncontrolled, significant, or accompanied by signs of shock.","Apply PPE — gloves before any wound contact.","Apply firm, direct pressure to the wound with a clean cloth or sterile dressing.","Do not release to inspect — add additional layers on top if blood saturates the dressing.","Elevate the injured limb above cardiac level where possible.","Apply a pressure bandage to secure the dressing and maintain haemostasis.","Monitor for shock. Keep the patient warm and still."],
+    warning:"Do not remove embedded objects — pack around them with sterile gauze. A tourniquet may be applied to a limb only when direct pressure has failed and haemorrhage is life-threatening. Note the time of application and do not remove in the field.",
+    detail:{
+      overview:{
+        summary:"Haemorrhagic shock occurs when blood volume loss impairs tissue oxygen delivery. An adult has approximately 4.7–5.5 litres of blood. Loss of more than 30% of circulating volume causes Class III haemorrhagic shock with marked haemodynamic instability. Direct sustained pressure is the most effective pre-hospital haemostatic intervention.",
+        stats:[{value:"~5L",label:"Average adult blood volume"},{value:">30%",label:"Volume loss to cause Class III shock"},{value:"10 min",label:"Minimum direct pressure without checking"},{value:"Direct pressure",label:"Always the first-line intervention"}],
+        keyPoints:["Arterial bleeds are bright red and pulsatile — they deplete circulating volume faster than venous bleeds.","The 'lethal triad' of hypothermia, acidosis, and coagulopathy worsens outcomes — keep the patient warm from the outset.","Wound packing with haemostatic gauze is now taught in PHECC-approved Irish first aid courses.","Do not remove a blood-soaked dressing — add additional layers on top and maintain pressure."],
+        source:"PHECC Clinical Practice Guidelines; HSE Ireland; ATLS haemorrhage classification."
+      },
+      kit:{
+        note:"Bleeding is one area where a well-stocked kit makes a direct, measurable difference to outcome. The goal is sustained pressure with the right materials. Having gloves is non-negotiable — your own safety matters.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"Multiple pairs of nitrile gloves",note:"Carry medium and large sizes. Never touch a bleeding wound without gloves. Keep a spare pair in your pocket during contact sessions."},
+              {name:"Sterile wound dressings (assorted sizes)",note:"Individually wrapped sterile dressings in at least three sizes: small (finger/hand), medium (limb), large (torso/scalp). Change to fresh ones if blood soaks through — add on top, do not remove."},
+              {name:"Conforming bandage (e.g. Soffban or similar)",note:"To secure dressings in place and maintain pressure. Have at least three in the kit."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Haemostatic gauze (e.g. QuikClot or similar)",note:"Impregnated with a clotting agent. Now taught in PHECC-approved Irish courses for catastrophic limb bleeds. Use for packing deep wounds when standard dressings are insufficient."},
+              {name:"Triangular bandage",note:"Versatile — can be used as a sling, a tie, or to secure a pressure dressing to a limb."},
+              {name:"Foil emergency blanket",note:"Prevent hypothermia, which worsens coagulation. Wrap the patient while maintaining pressure on the wound."},
+              {name:"Tourniquet (CAT or similar)",note:"For use only on limbs, only when direct pressure has failed, and only if you are trained in its application. Note the time of application clearly."}
+            ]
+          },
+          {
+            title:"Useful for clubs and competition venues",
+            priority:"useful",
+            items:[
+              {name:"Disposable apron",note:"For significant bleeds — protects the responder's clothing and reduces cross-contamination risk."},
+              {name:"Sealed biohazard waste bag",note:"For disposal of blood-contaminated dressings and gloves. Required for safe clean-up post-incident."},
+              {name:"Sharps bin (if mouthguard wires or dental work is present)",note:"Rare in martial arts but relevant at competitions where dental injuries occur with metal components."}
+            ]
+          }
+        ],
+        where:"First aid supplies including sterile dressings, conforming bandages, and haemostatic gauze are available from Boots Pharmacy, Caredoc, and specialist first aid suppliers such as Steroplast (steroplast.co.uk) and TraumaDressing.ie. Tourniquets (CAT model) are available from military and tactical first aid suppliers."
+      },
+      instructor:{
+        context:"Traumatic haemorrhage in martial arts typically results from lacerations, facial injuries, or joint injuries. Scalp wounds bleed heavily but are rarely life-threatening in isolation. Abdominal or thoracic trauma carries risk of concealed internal haemorrhage that may not be immediately visible.",
+        recognition:["A competitor who is pale, confused, or 'not right' after a contact injury may be developing haemorrhagic shock even if visible bleeding appears controlled.","Abdominal guarding or rigidity following a blow suggests internal haemorrhage — call 112 immediately.","Do not remove a blood-soaked dressing to look at the wound — add layers on top and maintain pressure.","Scalp wounds bleed heavily and disproportionately — apply and hold firm direct pressure."],
+        escalation:"Call 112 if bleeding cannot be controlled with sustained direct pressure, shock signs develop, the wound involves the neck or thorax, or internal injury is suspected.",
+        dojoTips:["Check your first aid kit before every session — restock after any use immediately.","Train instructors in pressure bandage application at least annually.","Know the nearest A&E before every competition or intensive training session.","For competitions: ensure a qualified first aider is present and fully equipped at ringside at all times."]
+      },
+      resources:[
+        {title:"HSE — Bleeding First Aid",desc:"HSE guidance on managing severe bleeding",url:"https://www2.hse.ie/conditions/bleeding/"},
+        {title:"PHECC — Pre-Hospital Emergency Care Council",desc:"Irish standards for pre-hospital care",url:"https://www.phecit.ie"},
+        {title:"Irish Red Cross — First Aid Training",desc:"Courses covering haemorrhage control",url:"https://www.redcross.ie/first-aid-training/"}
+      ]
+    }
+  },
+  {
+    title:"Head Injury & Concussion",
+    sub:"Traumatic brain injury — mild to severe",
+    sev:"high",
+    symptoms:["Any loss of consciousness — even momentary","Post-traumatic amnesia — inability to recall the event","Confusion, disorientation, or feeling 'foggy'","Headache or sensation of pressure","Nausea or repeated vomiting","Unequal pupil sizes","Clear fluid from nose or ears","Seizures following head impact"],
+    steps:["Call 112 if: any loss of consciousness, seizure, deteriorating neurological status, clear fluid from ears or nose, high-force mechanism, or suspected spinal injury.","Keep the person still. Assume spinal injury until excluded by emergency services.","Apply gentle pressure to scalp wounds. Do not remove embedded objects.","Monitor closely — symptoms can develop hours later.","If conscious: complete rest, no alcohol, no driving, no return to activity.","Any LOC, confusion, or vomiting requires A&E assessment regardless of apparent recovery."],
+    warning:"Concussion is a brain injury. Never permit same-day return to training or competition. Second Impact Syndrome — a rare but frequently fatal condition — occurs when a second concussion follows before full recovery from the first.",
+    detail:{
+      overview:{
+        summary:"Concussion is a mild traumatic brain injury that does not require loss of consciousness for diagnosis — confusion, cognitive slowing, or any recognised symptom is sufficient. In Ireland, the Sport Ireland Concussion Guidelines and Irish Concussion Charter (2019) govern return-to-sport protocols for all governing bodies including GAA, IRFU, FAI, and Combat Sport Ireland.",
+        stats:[{value:"SCAT6",label:"Standard sideline assessment tool in Irish sport"},{value:"7 days",label:"Minimum graduated return-to-sport period"},{value:"6 steps",label:"Graduated Return to Sport protocol stages"},{value:"'If in doubt'",label:"'...sit it out' — Sport Ireland policy"}],
+        keyPoints:["'If in doubt, sit it out' — apply this without exception.","Persistent Post-Concussion Syndrome (symptoms beyond 4 weeks) affects 10–15% of cases and requires specialist neurological referral.","Second Impact Syndrome is rare but when it occurs it is frequently fatal in young athletes.","Helmet use reduces risk of skull fracture but does not reliably prevent concussion."],
+        source:"Sport Ireland Concussion Guidelines; Irish Concussion Charter 2019; StatPearls NIH; SCAT6 BJSM 2023."
+      },
+      kit:{
+        note:"Concussion assessment is about observation and decision-making, not equipment. Your most important tool is a printed copy of the SCAT6 or CRT6 — freely available online — and the discipline to remove an athlete who should not continue.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"SCAT6 or CRT6 assessment card (printed)",note:"The Sport Concussion Assessment Tool 6 (SCAT6) is the standard sideline assessment in Irish sport. Print and laminate a copy — free to download at bjsm.bmj.com. The Concussion Recognition Tool 6 (CRT6) is the simplified public version."},
+              {name:"Disposable gloves",note:"Required before any patient contact, particularly for scalp wound management."},
+              {name:"Sterile wound dressings",note:"For scalp lacerations, which frequently accompany head impacts."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Pen and incident record form",note:"Record time of injury, mechanism, symptoms, SCAT6 score, and decision made. This becomes the medical record and is required for Graduated Return to Sport."},
+              {name:"Foil emergency blanket",note:"If the person needs to lie still while waiting for assessment or ambulance."},
+              {name:"CPR face shield",note:"If the person loses consciousness and CPR becomes necessary."},
+              {name:"Ice pack or instant cold pack",note:"For scalp haematomas (lumps) — apply wrapped in a cloth for 20 minutes. Do not place directly on skin."}
+            ]
+          },
+          {
+            title:"Useful for clubs and competition venues",
+            priority:"useful",
+            items:[
+              {name:"Printed Graduated Return to Sport protocol",note:"A clear, laminated 6-step return-to-sport guide to give to the athlete and their GP after a concussion incident."},
+              {name:"Club concussion policy document",note:"Required for affiliation with most Irish governing bodies. Should include reporting procedures, SCAT6 use, and return-to-sport rules."}
+            ]
+          }
+        ],
+        where:"SCAT6 and CRT6 forms are free to download at bjsm.bmj.com. Sport Ireland concussion resources at sportireland.ie/concussion. Printed and laminated versions can be prepared locally."
+      },
+      instructor:{
+        context:"Head injury and concussion are the most significant acute safety concern in martial arts. Under-reporting is prevalent — athletes minimise symptoms to avoid being removed from training. A culture of openness about head injury must be actively cultivated by instructors at every level.",
+        recognition:["Use the Maddocks Questions for rapid sideline assessment: 'What venue are we at? What round is it? Who scored last? What team did you play last week?'","Any athlete who appears dazed, slow, or 'not themselves' after a head blow must be removed immediately.","Retrograde amnesia (inability to recall events before the injury) indicates significant concussion.","Repeated sub-threshold blows in a session can cause cumulative impairment — take the athlete off."],
+        escalation:"Call 112 if: any LOC, seizure, repeated vomiting, worsening headache, clear fluid from ears or nose, focal neurological signs, or severe mechanism of injury. If in doubt — call.",
+        dojoTips:["Implement a formal concussion policy — required for most Irish governing body affiliation.","Document all head injury incidents with time, mechanism, and symptoms.","Graduated Return to Sport must involve a healthcare professional for moderate to severe injuries.","CRY Ireland screens young athletes for cardiac and neurological risk — irishheart.ie."]
+      },
+      resources:[
+        {title:"Sport Ireland — Concussion Guidelines",desc:"Official national guidelines for Irish sport",url:"https://www.sportireland.ie/participation/concussion"},
+        {title:"SCAT6 — Sport Concussion Assessment Tool",desc:"Free validated sideline assessment tool",url:"https://bjsm.bmj.com/content/57/11/622"},
+        {title:"HSE — Head Injury",desc:"HSE guidance on head injury assessment",url:"https://www2.hse.ie/conditions/head-injury/"},
+        {title:"CRY Ireland — Cardiac Screening",desc:"Cardiac Risk in the Young — national screening",url:"https://irishheart.ie/your-heart/prevention/cry-ireland/"}
+      ]
+    }
+  },
+  {
+    title:"Seizures",
+    sub:"Epilepsy and convulsive episodes",
+    sev:"high",
+    symptoms:["Sudden tonic phase — generalised rigidity and fall","Clonic phase — rhythmic bilateral jerking movements","Absence or focal onset — staring, automatisms","Loss of consciousness or unresponsiveness","Post-ictal confusion and drowsiness","Incontinence","Lateral tongue biting — specific to tonic-clonic seizure"],
+    steps:["Remain calm. Start timing immediately.","Clear the immediate area of hard or sharp objects.","Protect the head — place something soft beneath it.","Do not restrain. Do not place anything in the mouth.","After clonic phase resolves: place in recovery position.","Stay with the person through the post-ictal phase.","Call 112 if: first known seizure, duration exceeds 5 minutes, no recovery within 10 minutes, injury occurs, the person is pregnant or diabetic, or a second seizure follows."],
+    warning:"Status epilepticus — a seizure lasting more than 5 minutes — is a neurological emergency. Never place fingers or objects between the teeth. Restraint risks fracture and dislocation. Most tonic-clonic seizures self-terminate within 1–3 minutes.",
+    detail:{
+      overview:{
+        summary:"Epilepsy affects over 45,000 people in Ireland. A seizure is caused by abnormal electrical discharge in cortical neurons. Most tonic-clonic seizures self-terminate within 1–3 minutes without intervention. Status epilepticus — a seizure lasting more than 5 minutes — requires emergency treatment.",
+        stats:[{value:"45,000+",label:"People with epilepsy in Ireland (Epilepsy Ireland)"},{value:"5 min",label:"Threshold for status epilepticus"},{value:"1–3 min",label:"Typical tonic-clonic seizure duration"},{value:"30%",label:"Of cases cannot be controlled with medication"}],
+        keyPoints:["Many people with epilepsy carry rescue medication — midazolam buccal (Buccolam). Help them use it per their written Emergency Seizure Management Plan.","Febrile convulsions in young children are typically self-limiting but always require medical assessment.","Epilepsy Ireland helpline: 1800 210 450.","Do not restrain — it causes injury without shortening the seizure."],
+        source:"Epilepsy Ireland (epilepsy.ie); HSE Epilepsy Clinical Programme."
+      },
+      kit:{
+        note:"Managing a seizure requires calm, a clear space, and protection — not complex equipment. Your key responsibilities are timing the seizure, keeping the person safe from their environment, and knowing when to call 112.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"Phone or watch for timing",note:"Start timing the moment the seizure begins. If it reaches 5 minutes without stopping, call 112 immediately."},
+              {name:"Folded jacket or soft padding",note:"Placed under the head to protect from impact on hard surfaces. This is the single most protective intervention during the tonic-clonic phase."},
+              {name:"Disposable gloves",note:"Required for post-seizure airway management and recovery position."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Emergency Seizure Management Plan (student's own)",note:"Request a written plan from the student's GP or neurologist. Keep a copy in the first aid kit. It will specify their rescue medication, when to give it, and when to call 112."},
+              {name:"Rescue medication — student's own (Buccolam/midazolam buccal)",note:"Some students with epilepsy carry midazolam buccal gel. Store it in an accessible, labelled location. Administer only per their individual plan and only if you are trained."},
+              {name:"CPR face shield",note:"Required if the person stops breathing in the post-ictal phase."},
+              {name:"Foil emergency blanket",note:"For use in post-ictal recovery phase if the person is cold or distressed."}
+            ]
+          },
+          {
+            title:"Useful for clubs and venues",
+            priority:"useful",
+            items:[
+              {name:"Seizure first aid poster (Epilepsy Ireland)",note:"A free, printable reference poster available from epilepsy.ie — laminate and post in your changing area or first aid station."},
+              {name:"Incident record form",note:"Record time of onset, duration, type of movements observed, and post-ictal state. This is clinically useful for the student's neurologist."}
+            ]
+          }
+        ],
+        where:"Free seizure first aid posters and resources from Epilepsy Ireland: epilepsy.ie. Rescue medication (Buccolam) is prescription-only — students carry their own. Epilepsy Ireland can provide workplace and sports club awareness training — contact them directly."
+      },
+      instructor:{
+        context:"Epilepsy is among the most common neurological conditions in Ireland. Instructors will likely encounter a student with the condition during their teaching career. Most people with epilepsy manage it well with medication and train without restriction. Your key responsibilities are to know which students have epilepsy, to have access to their emergency plan, and to respond correctly.",
+        recognition:["Focal seizures may present as brief staring, repetitive movements, or unusual behaviour — they may not be immediately recognised as seizures.","A person who falls mid-drill without warning may be having a seizure — observe for tonic posturing.","Post-ictal confusion may last from minutes to over an hour — do not leave the person alone.","The post-ictal state can mimic intoxication — do not make assumptions."],
+        escalation:"Call 112 for any first seizure, any seizure lasting more than 5 minutes, any injury, or failure to recover within 10 minutes. For a student with known epilepsy whose seizure follows their typical pattern and resolves within 5 minutes, follow their individual Emergency Seizure Management Plan.",
+        dojoTips:["Collect medical information during registration — ask specifically about epilepsy.","Request an Emergency Seizure Management Plan before training begins.","Store rescue medication in an accessible, labelled location known to all instructors.","Epilepsy Ireland provides free sports club awareness training — contact epilepsy.ie."]
+      },
+      resources:[
+        {title:"Epilepsy Ireland",desc:"Helpline: 1800 210 450 — patient and club support",url:"https://www.epilepsy.ie"},
+        {title:"Epilepsy Ireland — Seizure First Aid",desc:"Free printable guidance and posters",url:"https://www.epilepsy.ie/information/first-aid"},
+        {title:"HSE — Epilepsy",desc:"HSE guidance on epilepsy and seizure management",url:"https://www2.hse.ie/conditions/epilepsy/"}
+      ]
+    }
+  },
+  {
+    title:"Asthma Attack",
+    sub:"Acute bronchospasm and airway inflammation",
+    sev:"high",
+    symptoms:["Progressive shortness of breath","Expiratory wheeze — audible on exhale","Chest tightness","Persistent, ineffective cough","Inability to complete sentences in one breath","Cyanosis of lips or digits — severe attack, call 112 immediately"],
+    steps:["Maintain calm — anxiety significantly worsens bronchospasm.","Sit upright, leaning slightly forward. Hands on knees helps.","Administer reliever inhaler (salbutamol, usually blue): shake, one puff every 30–60 seconds, up to 10 puffs.","Use a spacer device where available — increases drug delivery approximately 4-fold.","Call 112 if: no improvement after 10 puffs, first-ever episode, no inhaler available, or deterioration continues.","While waiting: repeat 10 puffs every 10 minutes.","Do not position supine."],
+    warning:"Acute severe asthma carries mortality risk. Do not delay calling 112 if any doubt. Aspirin, NSAIDs (ibuprofen), and beta-blockers can precipitate fatal bronchospasm and are contraindicated in asthma.",
+    detail:{
+      overview:{
+        summary:"Asthma affects approximately 470,000 people in Ireland — approximately 1 in 10 of the population — giving Ireland one of the highest national prevalence rates globally. Despite effective preventive therapy, asthma causes approximately 72 deaths per year in Ireland. Exercise-induced bronchoconstriction (EIB) is highly prevalent in athletes and particularly relevant in martial arts.",
+        stats:[{value:"470,000",label:"People with asthma in Ireland (Asthma Society)"},{value:"~1 in 10",label:"Of the Irish population (HSE / Asthma Society)"},{value:"4×",label:"Drug delivery improvement with a spacer device"},{value:"~72/yr",label:"Asthma deaths in Ireland (Asthma Society, 2019)"}],
+        keyPoints:["A spacer device dramatically improves inhaler effectiveness — always use one if available.","Exercise-induced bronchoconstriction can be managed with pre-exercise salbutamol 15 minutes before activity.","A silent chest in a previously wheezy patient is a sign of critical obstruction — call 112 immediately.","Asthma Society of Ireland helpline: 1800 44 54 64."],
+        source:"Asthma Society of Ireland; HSE End-to-End Model of Care for Asthma; Irish Times, May 2019."
+      },
+      kit:{
+        note:"The most important item for asthma is the student's own reliever inhaler — and a spacer to use it with. Require students with asthma to carry their inhaler to every session without exception.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"Student's own reliever inhaler (salbutamol, blue)",note:"The student must carry this at every session. Before training, confirm it is present, not expired, and has doses remaining. Do not allow asthmatic students to train without it."},
+              {name:"Spacer device",note:"Increases drug delivery to the lungs by approximately 4-fold. Each student with asthma should have their own. A spare in your first aid kit is a reasonable precaution."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Spare reliever inhaler (salbutamol)",note:"Available on prescription. Some clubs keep a spare in the kit. Discuss with a GP or pharmacist — prescribing requirements apply in Ireland."},
+              {name:"Student's Personal Asthma Action Plan (PAAP)",note:"Request a copy from the student's GP. It specifies their personal protocol, including when to use the inhaler, when to call 112, and any triggers to avoid."},
+              {name:"Foil emergency blanket",note:"Cold air is a common asthma trigger. If training outdoors in winter, have a blanket to wrap around a student who is recovering from an attack."}
+            ]
+          },
+          {
+            title:"Useful for clubs and venues",
+            priority:"useful",
+            items:[
+              {name:"Peak flow meter",note:"Measures how well air flows out of the lungs. Useful for monitoring severity of an attack if you are trained to interpret readings. Not required for basic first aid management."},
+              {name:"Asthma attack protocol card",note:"A printed laminated card outlining the 10-puff protocol and when to call 112 — useful for assistant instructors or parents helping at children's classes."}
+            ]
+          }
+        ],
+        where:"Spacer devices are available from pharmacies in Ireland without a prescription (e.g. Volumatic, AeroChamber). Reliever inhalers require a prescription — available through GP and GMS scheme. Asthma Society of Ireland (asthma.ie) provides free Personal Asthma Action Plan templates."
+      },
+      instructor:{
+        context:"Exercise-induced bronchoconstriction is frequently encountered in martial arts. Cold, dry air, prolonged high-intensity activity, and poorly controlled pre-existing asthma are primary risk factors. Many athletes with EIB are undiagnosed — presenting as poor performance or coughing after training.",
+        recognition:["EIB typically develops 5–15 minutes into sustained vigorous exercise and peaks 5–10 minutes after stopping.","A student who consistently coughs after hard sparring rounds should be referred to their GP for assessment.","A fit athlete who wheezes during standard training should be taken seriously — this is not deconditioning.","Pre-existing cold or respiratory infection significantly lowers the threshold for an acute attack."],
+        escalation:"10 puffs of salbutamol via spacer over 10 minutes without improvement — call 112. A silent chest in a previously wheezy patient means critical obstruction, not improvement.",
+        dojoTips:["Require students with asthma to carry their reliever inhaler to every training session without exception.","Do not allow asthmatic students to train without their inhaler present.","Reduce training intensity during cold weather or high pollen and thunderstorm risk periods.","Review all students' PAAPs at the start of each season."]
+      },
+      resources:[
+        {title:"Asthma Society of Ireland",desc:"Helpline: 1800 44 54 64 — resources and PAAPs",url:"https://www.asthma.ie"},
+        {title:"HSE — Asthma",desc:"HSE guidance on asthma management",url:"https://www2.hse.ie/conditions/asthma/"},
+        {title:"HSE — Model of Care for Asthma",desc:"National clinical programme guidance",url:"https://www.hse.ie/eng/about/who/cspd/ncps/ncpr/asthma/moc/"}
+      ]
+    }
+  },
+  {
+    title:"Fractures",
+    sub:"Suspected osseous injury",
+    sev:"high",
+    symptoms:["Localised pain and point tenderness","Progressive swelling and bruising","Visible deformity or abnormal angulation","Loss of function or inability to weight-bear","Grating sensation on movement","Bone visible or palpable through wound — open fracture"],
+    steps:["Call 112 for suspected spinal, pelvic, femoral, or open fractures.","Do not move the patient unless the environment is unsafe.","Immobilise in the position found — do not attempt reduction.","Apply a wrapped cold compress to reduce swelling.","Open fractures: cover with a sterile, moist, non-adherent dressing. Do not push bone back.","Elevate where possible. Check sensation, circulation, and movement distal to injury.","Transport to A&E for all other suspected fractures."],
+    warning:"Do not attempt to realign or reduce any fracture. Femoral shaft fractures can involve 1–2 litres of concealed haemorrhage — monitor for shock. All open fractures require IV antibiotics and surgical review.",
+    detail:{
+      overview:{
+        summary:"A fracture is a disruption in the continuity of bone. In martial arts, common fractures include the distal radius, clavicle, ribs, nasal bones, metacarpals, and phalanges. Diagnosis requires radiological imaging — clinical assessment alone cannot exclude fracture. Compartment syndrome, which can develop after a limb fracture, is a limb-threatening emergency.",
+        stats:[{value:"X-ray",label:"Required to exclude fracture"},{value:"1–2L",label:"Potential femoral fracture concealed blood loss"},{value:"6hrs",label:"Window for open fracture IV antibiotics"},{value:"Compartment",label:"Rare but limb-threatening complication"}],
+        keyPoints:["A clean snap sound during a technique with immediate pain and loss of function is a fracture until proven otherwise.","Compartment syndrome: disproportionate pain worsening on passive stretch, with pins and needles or numbness distal to injury — urgent surgical emergency.","Scaphoid fractures (wrist, anatomical snuffbox tenderness) may be missed on initial X-ray — treat clinically and refer.","Encourage students to attend A&E for any injury not resolving within 48 hours."],
+        source:"Advanced Trauma Life Support (ATLS); HSE Ireland; RCSI patient guidance."
+      },
+      kit:{
+        note:"Fracture management in the field is about immobilisation and safe transport, not reduction or splinting complex injuries. Your kit should enable you to protect the injury and get the person to A&E safely.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"Disposable gloves",note:"Required before any wound contact, particularly for open fractures."},
+              {name:"Sterile non-adherent dressings",note:"For open fractures — cover the wound and any visible bone with a moist sterile dressing. Do not push bone back."},
+              {name:"Conforming bandage",note:"To secure dressings on open fractures without applying direct pressure to the bone."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"SAM splint or malleable splint",note:"A lightweight, mouldable foam splint that can be shaped to support almost any limb fracture in the position found. Available in wrist, arm, and leg sizes. More effective than improvised splints."},
+              {name:"Triangular bandage (sling)",note:"For upper limb fractures — support the arm in a sling to reduce movement and pain during transport."},
+              {name:"Instant cold pack",note:"For swelling reduction — apply wrapped in a cloth for 20 minutes on, 20 minutes off. Do not apply ice directly to skin."},
+              {name:"Foil emergency blanket",note:"Femoral and pelvic fractures risk significant blood loss and shock — keep the patient warm."}
+            ]
+          },
+          {
+            title:"Useful for clubs and competition venues",
+            priority:"useful",
+            items:[
+              {name:"Vacuum splint",note:"The gold standard for fracture immobilisation in pre-hospital settings — moulds to the limb and sets rigid. Expensive but highly effective for clubs that run frequent competitions."},
+              {name:"Pelvic binder",note:"For suspected pelvic fractures — reduces internal haemorrhage by compressing the pelvis. Only for use by trained personnel. Relevant for competition venues with high-impact martial arts."},
+              {name:"Injury documentation form",note:"Record mechanism, time, site, neurovascular assessment, and action taken. Medico-legally important."}
+            ]
+          }
+        ],
+        where:"SAM splints and triangular bandages are available from Boots Pharmacy, Caredoc, and Irish first aid suppliers. Vacuum splints are available from medical equipment suppliers including HSS Medical and Trauma Care (traumacare.co.uk). Pelvic binders require specific training and are available from PHECC-approved suppliers."
+      },
+      instructor:{
+        context:"Fractures in martial arts most commonly involve fingers, hands, wrists, feet, and nose. Rib fractures occur from heavy contact. Cervical spine fractures, though uncommon, are a catastrophic risk in throwing and takedown arts — they require a high index of suspicion.",
+        recognition:["A clean snap during a technique with immediate pain and loss of function is a fracture until proven otherwise.","Nasal fractures: immediate swelling, deformity, and nosebleed — rarely an emergency but need GP or ENT review.","Avulsion fractures of the fifth metatarsal base (ankle inversion) mimic ankle sprains — X-ray is required.","Any fracture with pins and needles, numbness, or loss of movement distal to the injury needs urgent neurovascular assessment."],
+        escalation:"Call 112 for: any suspected spinal injury, open fractures, femoral fractures, suspected pelvic fractures, or any fracture with neurovascular compromise. All others: splint and transport to A&E.",
+        dojoTips:["Check your kit before each session — ensure splints and dressings are stocked.","Document the mechanism of all significant injuries for medico-legal purposes.","Ensure mats are in good condition and fully laid — incomplete mat coverage is a significant fracture risk.","Encourage students not to 'train through' pain after an impact — missed fractures are common."]
+      },
+      resources:[
+        {title:"HSE — Broken Bones",desc:"HSE guidance on fracture recognition and management",url:"https://www2.hse.ie/conditions/broken-bones/"},
+        {title:"PHECC — Pre-Hospital Emergency Care",desc:"Irish pre-hospital care standards",url:"https://www.phecit.ie"},
+        {title:"Irish Red Cross — First Aid Training",desc:"Training including fracture management",url:"https://www.redcross.ie/first-aid-training/"}
+      ]
+    }
+  },
+  {
+    title:"Burns & Scalds",
+    sub:"Thermal and chemical tissue injury",
+    sev:"high",
+    symptoms:["Superficial — redness, pain, dry skin","Partial thickness — blistering, wet wound surface, severe pain","Full thickness — white, brown, or black, leathery, may be painless","Swelling and oedema around the wound","Clothing or material adhering to the burned area"],
+    steps:["Irrigate with cool (not cold) running water for a minimum of 20 minutes — begin immediately.","Remove jewellery and non-adhering clothing while irrigating.","Cover with cling film applied lengthwise, or a clean non-adherent dressing.","Do not rupture blisters. Do not apply any topical preparation.","Call 112 or attend A&E for: burns larger than a palm, all burns in children, burns to face or hands or feet, chemical or electrical burns, circumferential burns, or suspected inhalation injury."],
+    warning:"Do not use ice, iced water, or fluffy dressings. Do not remove clothing adhered to the wound. Chemical burns require at least 30 minutes of irrigation — protect yourself from the chemical while treating.",
+    detail:{
+      overview:{
+        summary:"Burns are classified by depth and total body surface area (TBSA). The Rule of Nines estimates TBSA: head and neck 9%, each arm 9%, chest 9%, abdomen 9%, upper back 9%, lower back 9%, each thigh 9%, each lower leg 9%, perineum 1%. Burns services in Ireland are centralised at St James's Hospital (Dublin), Cork University Hospital, and University Hospital Galway under the National Burns Care Referral System (NBCRS).",
+        stats:[{value:"20 min",label:"Minimum cool water irrigation"},{value:"Rule of 9s",label:"TBSA estimation method"},{value:"3 centres",label:"Specialist burns units in Ireland"},{value:"30 min",label:"Chemical burn irrigation minimum"}],
+        keyPoints:["Cool water irrigation remains effective if started within 3 hours of injury — begin immediately.","Inhalation injury is the primary cause of burn-related mortality — suspect when burns occur in enclosed spaces.","Electrical burns have small surface entry wounds but extensive internal damage.","Do not use toothpaste, butter, or any home remedy on burns — they cause harm."],
+        source:"HSE Ireland; NBCRS referral criteria."
+      },
+      kit:{
+        note:"Burn first aid is primarily about one thing — sustained cool water irrigation. Most burns in a training environment will be minor mat burns or scalds near catering. Have the right dressings ready before you need them.",
+        sections:[
+          {
+            title:"Essential — have this immediately accessible",
+            priority:"essential",
+            items:[
+              {name:"Access to cool running water",note:"The most important intervention for any burn. A tap, hose, or large container of cool (not cold or iced) water. Irrigate for a minimum of 20 minutes. Cannot be substituted by any dressing."},
+              {name:"Cling film",note:"The ideal wound cover post-irrigation — non-adherent, transparent (allows monitoring), and readily available. Apply lengthwise in strips, not circumferentially. Standard kitchen cling film is appropriate."},
+              {name:"Disposable gloves",note:"Required before patient contact."}
+            ]
+          },
+          {
+            title:"Recommended — in your first aid kit",
+            priority:"recommended",
+            items:[
+              {name:"Burnshield hydrogel dressing",note:"A cool gel-impregnated dressing specifically designed for burns — available in pads and sachets. Cools the burn, provides pain relief, and serves as an interim dressing. Recommended by the HSE as a first aid kit inclusion. Does not replace 20 minutes of cool water irrigation."},
+              {name:"Non-adherent wound dressings (e.g. Melolin)",note:"For covering burns after irrigation when cling film is not available. Never use fluffy or adherent materials."},
+              {name:"Conforming bandage",note:"To secure burn dressings loosely — do not wrap tightly."},
+              {name:"Foil emergency blanket",note:"Significant burns cause rapid heat loss. Keep the patient warm after irrigation — prevent hypothermia."}
+            ]
+          },
+          {
+            title:"Useful for clubs and venues with catering or outdoor cooking",
+            priority:"useful",
+            items:[
+              {name:"Large burns dressing (25cm × 25cm or larger)",note:"For burns larger than a hand. Pre-packed sterile burn dressings are available from first aid suppliers."},
+              {name:"Chemical burn eye wash station",note:"If cleaning chemicals are used in your venue, a wall-mounted eye wash station is a recommended safety feature. Chemical eye injuries require immediate sustained irrigation."},
+              {name:"Nitrile gloves (extended cuff)",note:"For chemical burn management — protect the responder from the chemical agent while irrigating and removing contaminated clothing."}
+            ]
+          }
+        ],
+        where:"Burnshield dressings are available from pharmacies including Boots and Lloyds, and from first aid suppliers. Cling film is available in any supermarket. Burns referral information: NBCRS via the HSE. St James's Hospital Burns Unit: stjames.ie."
+      },
+      instructor:{
+        context:"Significant burns in martial arts training are uncommon but can occur near catering facilities at competitions or events, or from cleaning chemicals used in dojos. Minor mat burns (abrasion friction injuries) are the most frequent burn-type injury in grappling arts and carry infection risk in shared training environments.",
+        recognition:["Mat burns should be cleaned, irrigated, and covered with a non-adherent dressing — they carry infection risk, particularly in shared mat environments.","Full thickness burns may initially appear less painful than partial thickness — do not reassure based on pain alone.","Any burn to the face, hands, or joints requires A&E assessment regardless of apparent severity.","Suspect inhalation injury in anyone near smoke, fire, or explosion — even without visible facial burns."],
+        escalation:"Call 112 for: any burn larger than a palm, any burn in a child, any chemical or electrical burn, any suspected inhalation injury, or any circumferential burn.",
+        dojoTips:["Store chemical cleaning agents in locked, labelled storage away from all training areas.","Have cling film and Burnshield dressings in your kit — check expiry dates annually.","For competitions with catering: agree a safety protocol with the catering team and ensure first aiders know the location of the nearest water source.","Document all burns, however minor, for infection monitoring."]
+      },
+      resources:[
+        {title:"HSE — Burns and Scalds",desc:"HSE guidance on burn first aid and referral",url:"https://www2.hse.ie/conditions/burns-and-scalds/"},
+        {title:"St James's Hospital Burns Unit",desc:"National burns referral centre, Dublin",url:"https://www.stjames.ie"},
+        {title:"Irish Red Cross — First Aid Training",desc:"Training covering burn management",url:"https://www.redcross.ie/first-aid-training/"}
+      ]
+    }
+  }
+];
+
+// ── RENDER ──────────────────────────────────────────────────────────────────
+function renderList(list){
+  const cl=document.getElementById('conditionList'),nr=document.getElementById('noResults');
+  if(!list.length){cl.innerHTML='';nr.style.display='block';return;}
+  nr.style.display='none';
+  cl.innerHTML=list.map((c,i)=>`
+    <div class="card sev-${c.sev}" id="card-${i}">
+      <div class="card-trigger" onclick="toggleCard(${i})">
+        <div class="card-sev-bar"></div>
+        <div class="card-text">
+          <div class="card-title">${c.title}</div>
+          <div class="card-sub">${c.sub}</div>
+        </div>
+        <div class="card-meta">
+          <span class="sev-tag">${c.sev==='critical'?'Critical':c.sev==='high'?'High':'Monitor'}</span>
+          <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div class="body-section">
+            <div class="body-section-title">Symptoms &amp; Signs</div>
+            <div class="symptom-list">${c.symptoms.map(s=>`<div class="symptom-item"><div class="symptom-dot"></div><span>${s}</span></div>`).join('')}</div>
+          </div>
+          <div class="body-section">
+            <div class="body-section-title">First Aid Steps</div>
+            <div class="step-list">${c.steps.map((s,n)=>`<div class="step"><div class="step-num">${n+1}</div><span>${s}</span></div>`).join('')}</div>
+          </div>
+          ${c.warning?`<div class="warning"><div class="warning-label">Important</div>${c.warning}</div>`:''}
+          <button class="more-info-btn" onclick="openDetail(${i},event)">
+            <span>Full Reference &amp; Kit Guide</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleRecovery(){
+  const card=document.getElementById('recoveryCard');
+  card.classList.toggle('open');
+  if(card.classList.contains('open')){
+    setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+  }
+}
+
+function filterCards(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  if(!q){renderList(CONDITIONS);return;}
+  renderList(CONDITIONS.filter(c=>
+    c.title.toLowerCase().includes(q)||
+    c.sub.toLowerCase().includes(q)||
+    c.symptoms.some(s=>s.toLowerCase().includes(q))||
+    c.steps.some(s=>s.toLowerCase().includes(q))
+  ));
+}
+
+function toggleCard(i){
+  const card=document.getElementById('card-'+i),open=card.classList.contains('open');
+  document.querySelectorAll('.card.open').forEach(c=>c.classList.remove('open'));
+  if(!open){card.classList.add('open');setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'nearest'}),50);}
+}
+
+// ── DETAIL ───────────────────────────────────────────────────────────────────
+function openDetail(i,e){
+  e.stopPropagation();
+  const c=CONDITIONS[i];
+  document.getElementById('detailTitle').textContent=c.title;
+  document.getElementById('detailSub').textContent=c.sub;
+  const st=document.getElementById('detailSevTag');
+  st.textContent=c.sev==='critical'?'Critical Priority':c.sev==='high'?'High Priority':'Monitor';
+  st.className=`detail-sev-tag ${c.sev}`;
+  const d=c.detail;
+
+  // OVERVIEW
+  document.getElementById('tab-overview').innerHTML=`
+    <div class="d-block"><div class="d-block-label">Summary</div><p>${d.overview.summary}</p></div>
+    ${d.overview.stats?`<div class="d-block"><div class="d-block-label">Key Figures</div><div class="stat-grid">${d.overview.stats.map(s=>`<div class="stat-card"><div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div></div>`).join('')}</div></div>`:''}
+    <div class="d-block"><div class="d-block-label">Key Points</div><ul>${d.overview.keyPoints.map(k=>`<li>${k}</li>`).join('')}</ul></div>
+    <div class="d-block"><div class="d-block-label">First Aid Steps</div><div class="d-step-list">${c.steps.map((s,n)=>`<div class="d-step"><div class="d-step-num">${n+1}</div><div class="d-step-text">${s}</div></div>`).join('')}</div></div>
+    ${c.warning?`<div class="d-block"><div class="d-block-label">Important</div><div class="caution-box"><p>${c.warning}</p></div></div>`:''}
+    <div class="d-block"><div class="d-block-label">Source</div><div class="source-note"><strong>Data source:</strong> ${d.overview.source}</div></div>`;
+
+  // KIT
+  const k=d.kit;
+  const priorityLabel={essential:'Essential',recommended:'Recommended',useful:'Useful'};
+  document.getElementById('tab-kit').innerHTML=`
+    <div class="d-block"><div class="kit-note"><p>${k.note}</p></div></div>
+    <div class="kit-legend">
+      <div class="kit-legend-item"><div class="kit-legend-dot essential"></div>Essential</div>
+      <div class="kit-legend-item"><div class="kit-legend-dot recommended"></div>Recommended</div>
+      <div class="kit-legend-item"><div class="kit-legend-dot useful"></div>Useful</div>
+    </div>
+    ${k.sections.map(s=>`
+      <div class="kit-section">
+        <div class="kit-section-title">${s.title}</div>
+        <div class="kit-grid">${s.items.map(item=>`
+          <div class="kit-item kit-priority-${s.priority}">
+            <div class="kit-item-priority"></div>
+            <div class="kit-item-body">
+              <div class="kit-item-name">${item.name}</div>
+              <div class="kit-item-note">${item.note}</div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>`).join('')}
+    <div class="d-block" style="margin-top:8px"><div class="d-block-label">Where to Buy</div><div class="source-note">${k.where}</div></div>`;
+
+  // INSTRUCTOR
+  document.getElementById('tab-instructor').innerHTML=`
+    <div class="d-block"><div class="d-block-label">Training Context</div><p>${d.instructor.context}</p></div>
+    <div class="d-block"><div class="d-block-label">Recognition in a Training Environment</div><ul>${d.instructor.recognition.map(k=>`<li>${k}</li>`).join('')}</ul></div>
+    <div class="d-block"><div class="d-block-label">When to Escalate</div><div class="highlight-box"><p>${d.instructor.escalation}</p></div></div>
+    <div class="d-block"><div class="d-block-label">Dojo &amp; Club Guidance</div><ul>${d.instructor.dojoTips.map(k=>`<li>${k}</li>`).join('')}</ul></div>`;
+
+  // RESOURCES
+  document.getElementById('tab-resources').innerHTML=`
+    <div class="d-block"><div class="d-block-label">Official Resources &amp; References</div>
+    <div class="link-list">${d.resources.map(r=>`
+      <a href="${r.url}" target="_blank" rel="noopener" class="ext-link">
+        <div class="ext-link-text"><div class="ext-link-title">${r.title}</div><div class="ext-link-desc">${r.desc}</div></div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>`).join('')}
+    </div></div>`;
+
+  document.getElementById('detailPanel').classList.add('open');
+  switchTab('overview');
+  document.querySelector('.detail-scroll').scrollTop=0;
+}
+
+function closeDetail(){document.getElementById('detailPanel').classList.remove('open');}
+
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`.tab-btn[onclick="switchTab('${name}')"]`).classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.detail-scroll').scrollTop=0;
+}
+
+// ── PWA ───────────────────────────────────────────────────────────────────────
+let dp=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();dp=e;
+  if(!sessionStorage.getItem('installDismissed'))document.getElementById('installBanner').style.display='block';
+});
+document.getElementById('installBtn').addEventListener('click',async()=>{
+  if(dp){dp.prompt();await dp.userChoice;dp=null;document.getElementById('installBanner').style.display='none';}
+  else alert('To install:\n\nAndroid Chrome: Menu (⋮) → "Add to Home Screen"\n\niPhone Safari: Tap Share (□↑) → "Add to Home Screen"');
+});
+function dismissInstall(){sessionStorage.setItem('installDismissed','1');document.getElementById('installBanner').style.display='none';}
+
+if('serviceWorker' in navigator){
+  const sw=`const C='fa-ie-v5';
+self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.add(self.location.href)));self.skipWaiting();});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))));self.clients.claim();});
+self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match(e.request))));});`;
+  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
+}
+
+renderList(CONDITIONS);
+</script>
+</body>
+</html>
